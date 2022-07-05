@@ -37,6 +37,7 @@ dependencies:
   convex_bottom_bar: ^3.0.0
   fluro: ^2.0.3
   get_it: ^7.2.0
+  animations: ^2.0.3
 
 dev_dependencies:
   flutter_test:

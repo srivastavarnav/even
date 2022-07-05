@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-
-const BLUE = Color(0XFF0652f6);
-const GREY = Color(0XFFebedf4);
+import 'package:my_app/constants/theme_colors.dart';
+import 'package:my_app/locator.dart';
+import 'package:my_app/screens/add_screen.dart';
+import 'package:my_app/services/navigation.dart';
+import 'package:my_app/widgets/cosultation_card.dart';
+import 'package:animations/animations.dart';
 
 class ConsultationsScreen extends StatefulWidget {
   static const routeName = '/consultation';
@@ -14,6 +17,9 @@ class ConsultationsScreen extends StatefulWidget {
 class _ConsultationsScreenState extends State<ConsultationsScreen> {
   @override
   Widget build(BuildContext context) {
+    final NavigationService _navigationService = locator<NavigationService>();
+
+    const circleFabBorder = CircleBorder();
     return SafeArea(
       child: SingleChildScrollView(
         child: Stack(
@@ -27,13 +33,13 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                   width: 2,
                   height: MediaQuery.of(context).size.height * 0.7,
                   decoration: const BoxDecoration(
-                    color: BLUE,
+                    color: ThemeColor.blue,
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
                       colors: [
-                        BLUE,
-                        GREY,
+                        ThemeColor.blue,
+                        ThemeColor.grey,
                       ],
                     ),
                   ),
@@ -59,27 +65,68 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                   padding: const EdgeInsets.only(left: 24.0),
                   child: Row(
                     children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: BLUE,
-                              blurRadius: 5.0,
-                              spreadRadius: 2.0,
-                            ), //BoxShadow
-                            BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 15.0,
-                              spreadRadius: 1.0,
-                            ), //BoxShadow
-                          ],
+                      InkWell(
+                        onTap: () {},
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            boxShadow: const [
+                              BoxShadow(
+                                color: ThemeColor.blue,
+                                blurRadius: 5.0,
+                                spreadRadius: 2.0,
+                              ), //BoxShadow
+                              BoxShadow(
+                                color: Colors.white,
+                                blurRadius: 15.0,
+                                spreadRadius: 1.0,
+                              ), //BoxShadow
+                            ],
+                          ),
+                          child: const Icon(
+                            Icons.add_circle,
+                            color: ThemeColor.blue,
+                            size: 60.0,
+                          ),
                         ),
-                        child: const Icon(
-                          Icons.add_circle,
-                          color: BLUE,
-                          size: 60.0,
-                        ),
+                        // OpenContainer(
+                        //   openBuilder: (context, closedContainer) {
+                        //     return const AddScreen();
+                        //   },
+                        //   openColor: ThemeColor.blue,
+                        //   onClosed: (success) {
+                        //     print('here');
+                        //     _navigationService
+                        //         .navigateTo(ConsultationsScreen.routeName);
+                        //   },
+                        //   closedShape: circleFabBorder,
+                        //   closedColor: ThemeColor.grey,
+                        //   closedElevation: 6,
+                        //   closedBuilder: (context, openContainer) {
+                        //     return Container(
+                        //       decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(100),
+                        //         boxShadow: const [
+                        //           BoxShadow(
+                        //             color: ThemeColor.blue,
+                        //             blurRadius: 5.0,
+                        //             spreadRadius: 2.0,
+                        //           ), //BoxShadow
+                        //           BoxShadow(
+                        //             color: Colors.white,
+                        //             blurRadius: 15.0,
+                        //             spreadRadius: 1.0,
+                        //           ), //BoxShadow
+                        //         ],
+                        //       ),
+                        //       child: const Icon(
+                        //         Icons.add_circle,
+                        //         color: ThemeColor.blue,
+                        //         size: 60.0,
+                        //       ),
+                        //     );
+                        //   },
+                        // ),
                       ),
                       const SizedBox(
                         width: 24.0,
@@ -89,7 +136,7 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                         style: Theme.of(context)
                             .textTheme
                             .headline4
-                            ?.copyWith(color: BLUE),
+                            ?.copyWith(color: ThemeColor.blue),
                       ),
                     ],
                   ),
@@ -97,447 +144,15 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                 const SizedBox(
                   height: 32.0,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 32.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              '05:35 PM',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Text(
-                              'Today',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 8.0, bottom: 16.0),
-                      padding: const EdgeInsets.all(16.0),
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'CONSULTATION',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Image.asset(
-                                'assets/images/aster_logo.png',
-                                width: 70.0,
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Dr. Jordan Henderson',
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Text(
-                            'Aster RV, Multispeciality Hospital, JP Nagar, Bangalore',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 4.0),
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                BLUE,
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                'UPLOAD DOCS',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Feedback',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Edit',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline5
-                                    ?.copyWith(color: BLUE),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Every interaction with the hospital was great!',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                ConsultationCard(
+                  headingBg: Colors.yellowAccent.shade100,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 32.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              '05:35 PM',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Text(
-                              'Today',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 8.0, bottom: 16.0),
-                      padding: const EdgeInsets.all(16.0),
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'CONSULTATION',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Image.asset(
-                                'assets/images/aster_logo.png',
-                                width: 70.0,
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Dr. Jordan Henderson',
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Text(
-                            'Aster RV, Multispeciality Hospital, JP Nagar, Bangalore',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 4.0),
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                BLUE,
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                'UPLOAD DOCS',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Feedback',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Edit',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline5
-                                    ?.copyWith(color: BLUE),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Every interaction with the hospital was great!',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                ConsultationCard(
+                  headingBg: Colors.redAccent.shade100,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 32.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              '05:35 PM',
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Text(
-                              'Today',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1
-                                  ?.copyWith(fontWeight: FontWeight.w600),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 8.0, bottom: 16.0),
-                      padding: const EdgeInsets.all(16.0),
-                      width: MediaQuery.of(context).size.width * 0.7,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16.0),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'CONSULTATION',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              Image.asset(
-                                'assets/images/aster_logo.png',
-                                width: 70.0,
-                              )
-                            ],
-                          ),
-                          Text(
-                            'Dr. Jordan Henderson',
-                            style: Theme.of(context).textTheme.headline3,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Text(
-                            'Aster RV, Multispeciality Hospital, JP Nagar, Bangalore',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          Row(
-                            children: [
-                              Container(
-                                margin: const EdgeInsets.only(right: 4.0),
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                              Container(
-                                width: 40,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8.0,
-                          ),
-                          ElevatedButton(
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(
-                                BLUE,
-                              ),
-                              shape: MaterialStateProperty.all<
-                                  RoundedRectangleBorder>(
-                                const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(32.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            onPressed: () {},
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(
-                                'UPLOAD DOCS',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 24.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Feedback',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    ?.copyWith(fontWeight: FontWeight.bold),
-                              ),
-                              Text(
-                                'Edit',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline5
-                                    ?.copyWith(color: BLUE),
-                              ),
-                            ],
-                          ),
-                          Text(
-                            'Every interaction with the hospital was great!',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )
+                ConsultationCard(
+                  headingBg: Colors.greenAccent.shade100,
+                ),
               ],
             ),
           ],
@@ -546,3 +161,24 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
     );
   }
 }
+
+
+
+// class CircleTransitionPainter extends CustomPainter {
+//   CircleTransitionPainter({
+//     Color backgroundColor,
+//     Color currentCircleColor,
+//     this.transitionPercent = 0,
+//   }): backgroundPaint = Paint()...color= backgroundColor ;
+
+//   final Paint backgroundPaint;
+//   final Paint currentCirclePaint;
+
+//   @override
+//   void paint(Canvas canvas, Size size) {}
+
+//   @override
+//   bool shouldRepaint(CircleTransitionPainter oldDelegate) => false;
+//   @override
+//   bool shouldRebuildSemantics(CircleTransitionPainter oldDelegate) => false;
+// }

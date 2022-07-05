@@ -1,5 +1,6 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:my_app/constants/theme_colors.dart';
 import 'package:my_app/screens/consultations_screen.dart';
 
 class AppIndexScreen extends StatefulWidget {
@@ -14,8 +15,8 @@ class AppIndexScreen extends StatefulWidget {
 }
 
 class _AppIndexScreenState extends State<AppIndexScreen> {
-  final PageController _pageController = PageController(initialPage: 0);
-  int _selectedIndex = 0;
+  final PageController _pageController = PageController(initialPage: 1);
+  int _selectedIndex = 1;
   List<Widget> _widgetOptions = [];
   bool _isAuthenticated = false;
 
@@ -38,14 +39,14 @@ class _AppIndexScreenState extends State<AppIndexScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: const Color(0XFFebedf4),
+        backgroundColor: ThemeColor.grey,
         body: PageView(
           physics: const NeverScrollableScrollPhysics(),
           controller: _pageController,
           children: _widgetOptions,
         ),
         bottomNavigationBar: ConvexAppBar(
-          backgroundColor: const Color(0XFFebedf4),
+          backgroundColor: ThemeColor.grey,
           color: Colors.black,
           activeColor: Colors.black,
           items: const [
@@ -62,7 +63,7 @@ class _AppIndexScreenState extends State<AppIndexScreen> {
               icon: Icons.person,
             ),
           ],
-          initialActiveIndex: 0, //optional, default as 0
+          initialActiveIndex: 1, //optional, default as 1
           onTap: _onItemTapped,
         ));
   }
