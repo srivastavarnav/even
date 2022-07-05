@@ -32,7 +32,8 @@ class _MyWidgetState extends State<HospitalScreen> {
               containerAspectRatio: 1,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16.0, top: 32.0),
+              padding:
+                  const EdgeInsets.only(left: 16.0, top: 32.0, bottom: 16.0),
               child: Text(
                 'Your medical concierge',
                 style: Theme.of(context)
@@ -41,6 +42,42 @@ class _MyWidgetState extends State<HospitalScreen> {
                     ?.copyWith(color: Colors.black),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Divider(),
+                  Row(
+                    children: [
+                      ClipOval(
+                        child: Container(
+                          width: 60.0,
+                          height: 60.0,
+                          color: Colors.white,
+                          child: Image.asset(
+                            'assets/images/aster_logo.png',
+                            width: 60.0,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 16.0,
+                      ),
+                      Text(
+                        'Marco Corleone',
+                        style: Theme.of(context).textTheme.headline4?.copyWith(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                ],
+              ),
+            )
           ],
         ),
       ),
