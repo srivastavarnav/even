@@ -23,8 +23,9 @@ class AddScreen extends StatefulWidget {
 class _AddScreenState extends State<AddScreen> {
   final NavigationService _navigationService = locator<NavigationService>();
 
-  bool setLayout = false;
+  bool _setLayout = false;
   double turns = 0.0;
+  String? _selectedId;
   List<Map<String, String>> _items = [];
   final GlobalKey<AnimatedListState> listKey = GlobalKey<AnimatedListState>();
 
@@ -41,7 +42,7 @@ class _AddScreenState extends State<AddScreen> {
     super.initState();
     Future.delayed(const Duration(milliseconds: 700), () {
       setState(() {
-        setLayout = true;
+        _setLayout = true;
       });
       _changeRotation();
       _loadItems();
@@ -57,7 +58,7 @@ class _AddScreenState extends State<AddScreen> {
     return Scaffold(
       body: SafeArea(
         child: AnimatedContainer(
-          color: setLayout ? ThemeColor.grey : ThemeColor.blue,
+          color: _setLayout ? ThemeColor.grey : ThemeColor.blue,
           duration: const Duration(seconds: 1),
           child: Stack(
             alignment: Alignment.topCenter,
@@ -65,7 +66,7 @@ class _AddScreenState extends State<AddScreen> {
               Positioned(
                 top: 32.0,
                 child: AnimatedOpacity(
-                  opacity: setLayout ? 1.0 : 0.0,
+                  opacity: _setLayout ? 1.0 : 0.0,
                   duration: const Duration(milliseconds: 500),
                   child: Text(
                     'Choose Type of Service',
@@ -78,7 +79,7 @@ class _AddScreenState extends State<AddScreen> {
                 top: 32.0,
                 child: AnimatedOpacity(
                   duration: const Duration(milliseconds: 500),
-                  opacity: setLayout ? 1.0 : 0.0,
+                  opacity: _setLayout ? 1.0 : 0.0,
                   child: AnimatedRotation(
                     duration: const Duration(milliseconds: 1000),
                     turns: turns,
@@ -94,12 +95,44 @@ class _AddScreenState extends State<AddScreen> {
                   ),
                 ),
               ),
+              AnimatedPositioned(
+                  duration: const Duration(milliseconds: 600),
+                  bottom: _selectedId != null ? 32.0 : -100.0,
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(
+                          ThemeColor.blue,
+                        ),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                          const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(32.0),
+                            ),
+                          ),
+                        ),
+                      ),
+                      onPressed: () {},
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text(
+                          'Continue',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              ?.copyWith(color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  )),
               Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AnimatedOpacity(
                     duration: const Duration(milliseconds: 500),
-                    opacity: setLayout ? 1.0 : 0.0,
+                    opacity: _setLayout ? 1.0 : 0.0,
                     child: Container(
                       constraints: const BoxConstraints(minHeight: 500.0),
                       child: AnimatedList(
@@ -115,15 +148,75 @@ class _AddScreenState extends State<AddScreen> {
                                 parent: animation,
                                 curve: Curves.easeIn,
                                 reverseCurve: Curves.easeIn)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  bottom: 32.0, left: 20.0),
-                              child: Text(
-                                _items.isNotEmpty ? _items[index]['name']! : "",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headline3
-                                    ?.copyWith(fontWeight: FontWeight.w500),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  _selectedId = _items[index]['id'];
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    bottom: 32.0, left: 20.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        AnimatedOpacity(
+                                          duration:
+                                              const Duration(milliseconds: 800),
+                                          opacity:
+                                              _selectedId == _items[index]['id']
+                                                  ? 1.0
+                                                  : 0.0,
+                                          child: Row(
+                                            children: [
+                                              Container(
+                                                decoration: const BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: ThemeColor.blue,
+                                                ),
+                                                width: 6,
+                                                height: 6,
+                                              ),
+                                              const SizedBox(
+                                                width: 8.0,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                        Text(
+                                          _items.isNotEmpty
+                                              ? _items[index]['name']!
+                                              : "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headline3
+                                              ?.copyWith(
+                                                  fontWeight: FontWeight.w500),
+                                        ),
+                                      ],
+                                    ),
+                                    AnimatedOpacity(
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      opacity:
+                                          _selectedId == _items[index]['id']
+                                              ? 1.0
+                                              : 0.0,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 32.0),
+                                        child: Icon(
+                                          Icons.check_circle,
+                                          color: Colors.grey[700],
+                                          size: 24,
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
