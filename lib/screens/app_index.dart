@@ -2,6 +2,7 @@ import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/constants/theme_colors.dart';
 import 'package:my_app/screens/consultations_screen.dart';
+import 'package:my_app/screens/hospital_screen.dart';
 
 class AppIndexScreen extends StatefulWidget {
   static const routeName = '/';
@@ -24,8 +25,8 @@ class _AppIndexScreenState extends State<AppIndexScreen> {
   void initState() {
     super.initState();
     _widgetOptions = <Widget>[
-      const Center(child: Text('Page 1')),
-      ConsultationsScreen(),
+      const HospitalScreen(),
+      const ConsultationsScreen(),
       const Center(child: Text('Page 3')),
       const Center(child: Text('Page 4')),
     ];

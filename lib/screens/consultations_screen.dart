@@ -18,8 +18,9 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
   @override
   Widget build(BuildContext context) {
     final NavigationService _navigationService = locator<NavigationService>();
-
     const circleFabBorder = CircleBorder();
+    bool addClicked = false;
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Stack(
@@ -65,68 +66,56 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                   padding: const EdgeInsets.only(left: 24.0),
                   child: Row(
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            boxShadow: const [
-                              BoxShadow(
-                                color: ThemeColor.blue,
-                                blurRadius: 5.0,
-                                spreadRadius: 2.0,
-                              ), //BoxShadow
-                              BoxShadow(
-                                color: Colors.white,
-                                blurRadius: 15.0,
-                                spreadRadius: 1.0,
-                              ), //BoxShadow
-                            ],
-                          ),
-                          child: const Icon(
-                            Icons.add_circle,
-                            color: ThemeColor.blue,
-                            size: 60.0,
-                          ),
-                        ),
-                        // OpenContainer(
-                        //   openBuilder: (context, closedContainer) {
-                        //     return const AddScreen();
-                        //   },
-                        //   openColor: ThemeColor.blue,
-                        //   onClosed: (success) {
-                        //     print('here');
-                        //     _navigationService
-                        //         .navigateTo(ConsultationsScreen.routeName);
-                        //   },
-                        //   closedShape: circleFabBorder,
-                        //   closedColor: ThemeColor.grey,
-                        //   closedElevation: 6,
-                        //   closedBuilder: (context, openContainer) {
-                        //     return Container(
-                        //       decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(100),
-                        //         boxShadow: const [
-                        //           BoxShadow(
-                        //             color: ThemeColor.blue,
-                        //             blurRadius: 5.0,
-                        //             spreadRadius: 2.0,
-                        //           ), //BoxShadow
-                        //           BoxShadow(
-                        //             color: Colors.white,
-                        //             blurRadius: 15.0,
-                        //             spreadRadius: 1.0,
-                        //           ), //BoxShadow
-                        //         ],
-                        //       ),
-                        //       child: const Icon(
-                        //         Icons.add_circle,
-                        //         color: ThemeColor.blue,
-                        //         size: 60.0,
-                        //       ),
-                        //     );
-                        //   },
-                        // ),
+                      OpenContainer(
+                        openElevation: 0,
+                        closedElevation: 0,
+                        openBuilder: (context, closedContainer) {
+                          addClicked = true;
+                          return const AddScreen();
+                        },
+                        openColor: ThemeColor.blue,
+                        transitionDuration: const Duration(milliseconds: 700),
+                        onClosed: (success) {
+                          setState(() {
+                            addClicked = false;
+                          });
+                        },
+                        closedShape: circleFabBorder,
+                        closedColor: ThemeColor.grey,
+                        closedBuilder: (context, openContainer) {
+                          return AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 100),
+                            reverseDuration: const Duration(milliseconds: 100),
+                            switchInCurve: Curves.bounceIn,
+                            child: addClicked
+                                ? const Icon(
+                                    Icons.circle,
+                                    color: ThemeColor.blue,
+                                    size: 60.0,
+                                  )
+                                : Container(
+                                    decoration: const BoxDecoration(
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: ThemeColor.blue,
+                                          blurRadius: 5.0,
+                                          spreadRadius: 2.0,
+                                        ),
+                                        BoxShadow(
+                                          color: Colors.white,
+                                          blurRadius: 15.0,
+                                          spreadRadius: 1.0,
+                                        ),
+                                      ],
+                                    ),
+                                    child: const Icon(
+                                      Icons.add_circle,
+                                      color: ThemeColor.blue,
+                                      size: 60.0,
+                                    ),
+                                  ),
+                          );
+                        },
                       ),
                       const SizedBox(
                         width: 24.0,
