@@ -1,16 +1,47 @@
-# my_app
+Even Assignment
+=============
 
-A new Flutter project.
+Setup Steps
+-----------
 
-## Getting Started
+1. Environment Setup:
 
-This project is a starting point for a Flutter application.
+        * Download and Install Flutter SDK 2.17.x:
+            - Follow the steps here - https://flutter.dev/docs/get-started/install
+            - Also setup an emulator if required using the above link.
 
-A few resources to get you started if this is your first Flutter project:
+        * Install flutter and dart plugins in you respective IDEs:
+            - Follow the steps here - https://flutter.dev/docs/get-started/editor
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Flutter Options
+-----------
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. To check the list of devices attached:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter devices
+
+1. To Run the app on an emulator / device:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter run 
+
+1. To install packages:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter pub get
+
+1. To check for errors in flutter setup:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter doctor
+
+1. To fix formatting errors:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter format .
+
+1. To check for lint errors:
+
+        * cd <PROJECT DIRECTORY>
+        * flutter analyze
