@@ -6,6 +6,12 @@ import 'package:my_app/services/navigation.dart';
 import 'package:my_app/widgets/cosultation_card.dart';
 import 'package:animations/animations.dart';
 
+final List<Color> colors = <Color>[
+  Colors.yellowAccent.shade100,
+  Colors.redAccent.shade100,
+  Colors.greenAccent.shade100,
+];
+
 class ConsultationsScreen extends StatefulWidget {
   static const routeName = '/consultation';
   const ConsultationsScreen({Key? key}) : super(key: key);
@@ -133,15 +139,16 @@ class _ConsultationsScreenState extends State<ConsultationsScreen> {
                 const SizedBox(
                   height: 32.0,
                 ),
-                ConsultationCard(
-                  headingBg: Colors.yellowAccent.shade100,
-                ),
-                ConsultationCard(
-                  headingBg: Colors.redAccent.shade100,
-                ),
-                ConsultationCard(
-                  headingBg: Colors.greenAccent.shade100,
-                ),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: colors.length,
+                  itemBuilder: (context, index) {
+                    return ConsultationCard(
+                      headingBg: colors[index],
+                    );
+                  },
+                )
               ],
             ),
           ],
